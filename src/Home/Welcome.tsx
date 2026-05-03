@@ -7,7 +7,7 @@ export default function Home() {
       <img
         src={bg}
         alt="Mountains and forests with two cabins"
-        className="absolute inset-0 object-cover object-top"
+        className="absolute inset-0 object-cover object-top overflow-hidden"
       />
 
       <div className="relative z-10 text-center">

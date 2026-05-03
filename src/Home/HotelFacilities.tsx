@@ -1,3 +1,3 @@
 export const HotelFacilities = () => {
-  return <div>HotelFacilities</div>;
+  return <div className="pt-50">HotelFacilities</div>;
 };

@@ -3,9 +3,9 @@ import about1 from "../assets/AboutUs1.webp";
 
 export const AboutUs = () => {
   return (
-    <section className="py-24 ">
+    <section className="py-24">
       <div className="max-w-7xl mx-auto px-8 md:px-10 grid lg:grid-cols-2 gap-16 items-center">
-        <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-primary-800 shadow-2xl group">
+        <div className="relative aspect-4/3 rounded-sm overflow-hidden border border-primary-800 shadow-2xl group">
           <img
             src={about1}
             alt="Our luxury resort cabin"
