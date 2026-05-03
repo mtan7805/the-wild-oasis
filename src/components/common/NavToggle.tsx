@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
