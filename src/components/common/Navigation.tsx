@@ -13,17 +13,19 @@ export default function Navigation({
   handleToggle: () => void;
 }) {
   return (
-    <nav className="w-full lg:w-auto">
-      <ul className="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full lg:pt-2.5">
+    <nav>
+      <ul className="flex flex-col md:flex-row gap-10 items-center">
         {navLinks.map((link) => (
-          <li key={link.path} className="w-full lg:w-auto">
+          <li key={link.path}>
             <NavLink
               to={link.path}
               end={link.path === "/"}
               onClick={handleToggle}
               className={({ isActive }) =>
-                `transition text-xl tracking-wide border-b border-b-primary-800 pb-3 lg:border-none lg:pb-0 block w-full lg:w-auto ${
-                  isActive ? "text-accent-400" : "text-white/80 hover:text-accent-400"
+                `transition-all duration-300 text-xl tracking-wide ${
+                  isActive
+                    ? "text-accent-400"
+                    : "text-primary-100 hover:text-accent-400"
                 }`
               }
             >

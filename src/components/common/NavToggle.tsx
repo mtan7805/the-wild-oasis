@@ -1,50 +1,40 @@
 import { useState } from "react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 
 function NavToggle() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => setIsOpen((prev) => !prev);
+  function handleToggle() {
+    setIsOpen(!isOpen);
+  }
 
   return (
     <>
-      {/* overlay */}
-      {isOpen && (
-        <div onClick={handleToggle} className="fixed inset-0  md:hidden z-40" />
-      )}
+      <span
+        onClick={handleToggle}
+        className={`${
+          isOpen ? "block" : "hidden"
+        } md:hidden top-0 left-0 absolute h-screen w-screen bg-black/10 z-20`}
+      />
 
-      {/* header content */}
-      <div className="flex items-center justify-between w-full">
+      <button
+        title="Menu"
+        onClick={handleToggle}
+        className="md:hidden bg-slate-500 shadow-lg text-slate-200 rounded-full size-12 flex justify-center items-center select-none cursor-pointer z-50 relative p-2"
+      >
+        {isOpen ? <XMarkIcon /> : <Bars3Icon />}
+      </button>
+
+      <div
+        className={`${
+          isOpen ? "top-0" : "-top-full"
+        } flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto absolute right-0 md:relative bg-slate-300 md:bg-transparent h-fit md:h-auto w-screen md:w-auto z-40 py-8 md:p-0 shadow-lg md:shadow-none transition-all`}
+      >
         <Logo handleToggle={handleToggle} />
 
-        {/* desktop nav */}
-        <div className="hidden lg:block">
-          <Navigation handleToggle={handleToggle} />
-        </div>
-
-        {/* mobile button */}
-        <button onClick={handleToggle} className="lg:hidden text-white z-100">
-          {isOpen ? (
-            <XMarkIcon className="w-8 h-8" />
-          ) : (
-            <Bars3Icon className="w-8 h-8" />
-          )}
-        </button>
-      </div>
-
-      {/* mobile menu */}
-      <div
-        className={`
-          absolute lg:hidden p-6  left-0 right-0 top-20  z-100 
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
-          lg:hidden
-        `}
-      >
-        <div className="flex flex-col p-10 justify-start text-xl w-full bg-primary-900 space-y-6 font-semibold text-white rounded-sm ">
-          <Navigation handleToggle={handleToggle} />
-        </div>
+        <Navigation handleToggle={handleToggle} />
       </div>
     </>
   );
