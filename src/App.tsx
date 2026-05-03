@@ -1,10 +1,10 @@
 import "./App.css";
-import { Welcome } from "./components/Home/Welcome";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <>
-      <Welcome />
+      <AppRoutes />
     </>
   );
 }
