@@ -12,6 +12,12 @@
   /* fonts */
   --font-family: "Josefin Sans", sans-serif;
 }
+section {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 32px;
+  padding-block: 48px;
+}
 
 @theme {
   --color-primary-50: #e1e8ef;

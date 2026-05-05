@@ -3,11 +3,11 @@ import bg from "../assets/bg.webp";
 
 export default function Home() {
   return (
-    <div className=" pt-32 w-full h-screen">
+    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center">
       <img
         src={bg}
         alt="Mountains and forests with two cabins"
-        className="absolute inset-0 object-cover object-top overflow-hidden"
+        className="absolute inset-0 w-full h-full object-cover object-top"
       />
 
       <div className="relative z-10 text-center">

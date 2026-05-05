@@ -8,7 +8,7 @@ export const CabinPreview = () => {
   return (
     <section>
       <div className="flex items-center justify-between gap-2 mb-8">
-        <h1 className=" flex text-5xl items-center">Cabins Availability</h1>
+        <h1 className=" text-5xl items-center">Cabins Availability</h1>
         <Link to="/Cabins">
           <MyButton>All Cabins</MyButton>
         </Link>
@@ -63,7 +63,9 @@ export const CabinPreview = () => {
               className="absolute inset-0px object-cover object-center"
             />
           </Link>
-          <h1 className="text-3xl tracking-wide">Cabin 002</h1>
+          <h1 className="text-3xl tracking-wide uppercase font-medium">
+            Cabin 002
+          </h1>
           <div className="flex items-center gap-12">
             <span>2 Double Beds</span>
             <span>Max 4 Guests</span>
