@@ -46,6 +46,7 @@ section {
 }
 
 body {
+  margin: 0;
   background-color: var(--color-bg);
   font-family: var(--font-family);
   color: var(--color-white-100);
