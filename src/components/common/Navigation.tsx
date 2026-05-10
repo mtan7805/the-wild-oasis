@@ -9,20 +9,33 @@ const navLinks = [
 
 export default function Navigation({
   handleToggle,
+  isMobile = false,
 }: {
   handleToggle: () => void;
+  isMobile?: boolean;
 }) {
   return (
-    <nav>
-      <ul className="flex flex-col md:flex-row gap-10 items-center">
+    <nav className="w-full">
+      <ul
+        className={`flex ${
+          isMobile ? "flex-col" : "flex-row gap-10 items-center"
+        }`}
+      >
         {navLinks.map((link) => (
-          <li key={link.path}>
+          <li
+            key={link.path}
+            className={
+              isMobile ? "border-b border-primary-900 last:border-none" : ""
+            }
+          >
             <NavLink
               to={link.path}
               end={link.path === "/"}
               onClick={handleToggle}
               className={({ isActive }) =>
-                `transition-all duration-300 text-xl tracking-wide ${
+                `block transition-all duration-300 text-xl tracking-wide ${
+                  isMobile ? "py-6 text-2xl font-semibold" : ""
+                } ${
                   isActive
                     ? "text-accent-400"
                     : "text-primary-100 hover:text-accent-400"

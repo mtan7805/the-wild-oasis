@@ -11,32 +11,42 @@ function NavToggle() {
   }
 
   return (
-    <>
-      <span
-        onClick={handleToggle}
-        className={`${
-          isOpen ? "block" : "hidden"
-        } md:hidden top-0 left-0 absolute h-screen w-screen bg-black/10 z-20`}
-      />
-
+    <div className="md:hidden">
       <button
         title="Menu"
         onClick={handleToggle}
-        className="md:hidden bg-slate-500 shadow-lg text-slate-200 rounded-full size-12 flex justify-center items-center select-none cursor-pointer z-50 relative p-2"
+        className="text-primary-100 hover:text-accent-400 transition-colors select-none cursor-pointer z-50 relative"
       >
-        {isOpen ? <XMarkIcon /> : <Bars3Icon />}
+        <Bars3Icon className="size-8" />
       </button>
 
+      {/* Mobile Overlay Menu */}
       <div
-        className={`${
-          isOpen ? "top-0" : "-top-full"
-        } flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto absolute right-0 md:relative bg-slate-300 md:bg-transparent h-fit md:h-auto w-screen md:w-auto z-40 py-8 md:p-0 shadow-lg md:shadow-none transition-all`}
+        className={`absolute top-0 left-0 w-full h-screen bg-primary-950 z-[100] transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-full pointer-events-none"
+        }`}
       >
-        <Logo handleToggle={handleToggle} />
+        <div className="flex flex-col h-full">
+          {/* Menu Header */}
+          <div className="flex justify-between items-center px-8 py-5 border-b border-primary-900">
+            <Logo handleToggle={handleToggle} />
+            <button
+              onClick={handleToggle}
+              className="text-primary-100 hover:text-accent-400 transition-colors"
+            >
+              <XMarkIcon className="size-8" />
+            </button>
+          </div>
 
-        <Navigation handleToggle={handleToggle} />
+          {/* Menu Links */}
+          <div className="flex-1 overflow-y-auto px-8">
+            <Navigation handleToggle={handleToggle} isMobile={true} />
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 
