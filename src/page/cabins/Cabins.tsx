@@ -1,7 +1,17 @@
+import { useSearchParams } from "react-router-dom";
 import CabinFilter from "../../components/cabins/CabinFilter";
 import CabinList from "../../components/cabins/CabinList";
 
-export const Cabins = () => {
+export type FilterValue = "all" | "small" | "medium" | "large";
+
+export function Cabins() {
+  const [searchParams] = useSearchParams();
+  const capacity = searchParams.get("capacity");
+
+  const filter: FilterValue =
+    capacity === "small" || capacity === "medium" || capacity === "large"
+      ? capacity
+      : "all";
   return (
     <section>
       <div>
@@ -20,8 +30,8 @@ export const Cabins = () => {
         <div className="flex justify-end mb-8">
           <CabinFilter />
         </div>
-        <CabinList />
       </div>
+      <CabinList filter={filter} />
     </section>
   );
-};
+}

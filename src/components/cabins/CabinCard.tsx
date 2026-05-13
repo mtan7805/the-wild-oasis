@@ -16,7 +16,7 @@ function CabinCard({ cabin }: CabinCardProps) {
         <img
           src={image}
           alt={`Cabin ${name}`}
-          className="w-full h-full object-cover object-fit border-r border-primary-800"
+          className="absolute inset-0 w-full h-full object-cover border-r border-primary-800"
         />
       </div>
 

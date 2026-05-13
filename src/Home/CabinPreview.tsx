@@ -1,10 +1,31 @@
 import { Link } from "react-router-dom";
 import MyButton from "../components/common/MyButton";
-import cabin01 from "../assets/cabin001.webp";
-import cabin02 from "../assets/cabin002.webp";
-import cabin03 from "../assets/cabin003.webp";
+import type { Cabin } from "../types/cabins/cabins";
+import { getCabinsApi } from "../services/cabins.api";
+import Spinner from "../components/common/Spinner";
+import { useEffect, useState } from "react";
 
 export const CabinPreview = () => {
+  const [cabins, setCabins] = useState<Cabin[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDataCabins = async () => {
+    try {
+      const res = await getCabinsApi();
+      setCabins(res.slice(0, 3));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataCabins();
+  }, []);
+
+  if (loading) return <Spinner />;
+
   return (
     <section>
       <div className="flex items-center justify-between gap-2 mb-8">
@@ -15,116 +36,75 @@ export const CabinPreview = () => {
       </div>
 
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7">
-        <div className="flex flex-col space-y-4">
-          <Link
-            to="#"
-            className=" relative h-62.5 aspect-square overflow-hidden "
-          >
-            <img
-              src={cabin01}
-              alt="Cabin 01"
-              className="absolute inset-0 object-cover object-center"
-            />
-          </Link>
-          <h1 className="text-3xl tracking-wide uppercase font-medium">
-            Cabin 001
-          </h1>
-          <div className="flex items-center gap-12">
-            <span>1 King Bed</span>
-            <span>Max 2 Guests</span>
-          </div>
-          <Link to="#" className="cursor-pointer">
-            SEE DETAIL
-          </Link>
-          <hr className="border-primary-800" />
+        {cabins.map((cabin) => {
+          const { id, name, maxCapacity, regularPrice, discount, image } =
+            cabin;
 
-          <div className="flex justify-between">
-            <div className="flex flex-col">
-              <span>Start from</span>
-              <span>
-                <label className="text-xl font-bold">$450</label>
-                <label>$/ night</label>
-              </span>
+          const finalPrice = regularPrice - discount;
+
+          return (
+            <div key={id} className="flex flex-col space-y-4">
+              <Link
+                to={`/cabins/${id}`}
+                className="relative h-62.5 aspect-square overflow-hidden"
+              >
+                <img
+                  src={image}
+                  alt={`Cabin ${name}`}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              </Link>
+
+              <h1 className="text-3xl tracking-wide uppercase font-medium">
+                {name}
+              </h1>
+
+              <div className="flex items-center gap-12">
+                <span>1 King Bed</span>
+                <span>Max {maxCapacity} Guests</span>
+              </div>
+
+              <Link
+                to={`/cabins/${id}`}
+                className="cursor-pointer hover:text-accent-500 transition-colors"
+              >
+                SEE DETAIL
+              </Link>
+
+              <hr className="border-primary-800" />
+
+              <div className="flex justify-between items-end gap-4">
+                <div className="flex flex-col">
+                  <span>Start from</span>
+
+                  <div className="flex items-center gap-2">
+                    {discount > 0 ? (
+                      <>
+                        <span className="text-3xl font-[350]">
+                          ${finalPrice}
+                        </span>
+
+                        <span className="line-through font-semibold text-primary-600">
+                          ${regularPrice}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-3xl font-[350]">
+                        ${regularPrice}
+                      </span>
+                    )}
+
+                    <span> / night</span>
+                  </div>
+                </div>
+
+                <Link to={`/cabins/${id}`}>
+                  <MyButton>Check Availability</MyButton>
+                </Link>
+              </div>
             </div>
-
-            <Link to="#">
-              <MyButton>Check Availability</MyButton>
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-col space-y-4">
-          <Link
-            to="#"
-            className=" relative h-62.5 aspect-square overflow-hidden "
-          >
-            <img
-              src={cabin02}
-              alt="Cabin 02"
-              className="absolute inset-0px object-cover object-center"
-            />
-          </Link>
-          <h1 className="text-3xl tracking-wide uppercase font-medium">
-            Cabin 002
-          </h1>
-          <div className="flex items-center gap-12">
-            <span>2 Double Beds</span>
-            <span>Max 4 Guests</span>
-          </div>
-          <Link to="#" className="cursor-pointer">
-            SEE DETAIL
-          </Link>
-          <hr className="border-primary-800" />
-
-          <div className="flex justify-between">
-            <div className="flex flex-col">
-              <span>Start from</span>
-              <span>
-                <label className="text-xl font-bold">$300</label>
-                <label>$/ night</label>
-              </span>
-            </div>
-            <Link to="#">
-              <MyButton>Check Availability</MyButton>
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-col space-y-4">
-          <Link
-            to="#"
-            className=" relative h-62.5 aspect-square overflow-hidden "
-          >
-            <img
-              src={cabin03}
-              alt="Cabin 03"
-              className="absolute inset-0 object-cover object-center"
-            />
-          </Link>
-          <h1 className="text-3xl tracking-wide uppercase font-medium">
-            Cabin 003
-          </h1>
-          <div className="flex items-center gap-12">
-            <span>2 King Bed</span>
-            <span>Max 6 Guests</span>
-          </div>
-          <Link to="#" className="cursor-pointer">
-            SEE DETAIL
-          </Link>
-          <hr className="border-primary-800" />
-
-          <div className="flex justify-between">
-            <div className="flex flex-col">
-              <span>Start from</span>
-              <span>
-                <label className="text-xl font-bold">$350</label>
-                <label>$/ night</label>
-              </span>
-            </div>
-
-            <Link to="#">
-              <MyButton>Check Availability</MyButton>
-            </Link>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </section>
   );
