@@ -30,7 +30,7 @@ export const CabinPreview = () => {
     <section>
       <div className="flex items-center justify-between gap-2 mb-8">
         <h1 className=" text-5xl items-center">Cabins Availability</h1>
-        <Link to="/Cabins">
+        <Link to="/Cabins" className="hidden sm:block">
           <MyButton>All Cabins</MyButton>
         </Link>
       </div>
@@ -105,6 +105,12 @@ export const CabinPreview = () => {
             </div>
           );
         })}
+      </div>
+
+      <div className="flex items-center justify-center pt-10 sm:hidden">
+        <Link to="/Cabins">
+          <MyButton>All Cabins</MyButton>
+        </Link>
       </div>
     </section>
   );

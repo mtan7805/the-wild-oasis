@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <footer className="bg-primary-900 w-full p-8 md:p-10 lg:p-12 space-y-10">
-      <div className="grid grid-cols-4 gap-12">
+      <div className="grid gap-12 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4">
         <div className="flex flex-col gap-6">
           <Link to="/" className="flex items-center gap-4 z-10">
             <img
@@ -64,7 +64,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
         <div className="flex items-center gap-6">
           <span>Privacy</span>
           <span>Legal Notice</span>

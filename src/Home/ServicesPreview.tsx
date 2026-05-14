@@ -5,7 +5,7 @@ import service4 from "../assets/service4.webp";
 
 export const ServicesPreview = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center items-center mb-20">
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center items-center">
       <div className="relative">
         <img
           src={service1}

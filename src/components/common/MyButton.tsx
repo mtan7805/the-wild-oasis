@@ -14,7 +14,7 @@ export default function MyButton({
   return (
     <button
       onClick={onClick}
-      className={`border border-amber-50 bg-none px-4 py-3 cursor-pointer
+      className={`border border-amber-50 bg-none px-3 py-3 cursor-pointer
                 uppercase tracking-wide
                 transition-all duration-300
                 hover:bg-accent-600 hover:text-primary-100

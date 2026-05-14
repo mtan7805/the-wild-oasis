@@ -26,28 +26,28 @@ function CabinFilter() {
         handleFilter={handleFilter}
         activeFilter={activeFilter}
       >
-        All cabins
+        All <span className="hidden sm:inline">cabins</span>
       </Button>
       <Button
         filter="small"
         handleFilter={handleFilter}
         activeFilter={activeFilter}
       >
-        3-4 guests
+        1-3 <span className="hidden sm:inline">guests</span>
       </Button>
       <Button
         filter="medium"
         handleFilter={handleFilter}
         activeFilter={activeFilter}
       >
-        5-7 guests
+        4-7 <span className="hidden sm:inline">guests</span>
       </Button>
       <Button
         filter="large"
         handleFilter={handleFilter}
         activeFilter={activeFilter}
       >
-        8-12 guests
+        8-12 <span className="hidden sm:inline">guests</span>
       </Button>
     </div>
   );
