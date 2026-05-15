@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import about1 from "../../assets/about-1.webp";
+import about2 from "../../assets/about-2.webp";
+
 export const About = () => {
   return (
     <div className="flex-1 px-8 py-6 grid">
@@ -39,10 +41,7 @@ export const About = () => {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-24 gap-y-12 text-lg items-center">
             <div className="col-span-3 lg:col-span-2 aspect-square relative">
-              <img
-                src={about1}
-                alt="Family sitting around a fire pit in front of cabin"
-              />
+              <img src={about2} alt="Family that manages The Wild Oasis" />
             </div>
 
             <div className="col-span-3">

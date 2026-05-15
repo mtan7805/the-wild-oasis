@@ -22,7 +22,7 @@ export default function Layout() {
         </main>
       </div>
 
-      <Footer />
+      {!location.pathname.startsWith("/guest") && !location.pathname.startsWith("/about") && <Footer />}
     </div>
     </>
   );

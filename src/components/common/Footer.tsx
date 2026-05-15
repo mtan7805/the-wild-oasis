@@ -54,7 +54,7 @@ export const Footer = () => {
           <span>South Tyrol, Italy</span>
         </div>
 
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-start gap-2">
           <Link to="#">
             <img src={award} alt="Award Pic" />
           </Link>
