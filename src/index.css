@@ -79,3 +79,40 @@ body {
   font-family: var(--font-family);
   color: var(--color-white-100);
 }
+
+.rdp-root {
+  --rdp-day_button-border-radius: 10px !important;
+  --rdp-accent-color: theme("colors.accent.500") !important;
+  margin: 0 !important;
+}
+
+.rdp-custom {
+  background-color: transparent;
+  color: white;
+}
+
+.rdp-custom .rdp-day {
+  color: white;
+  border-radius: 50%;
+}
+
+.rdp-custom .rdp-range_middle {
+  background-color: #b78343 !important;
+}
+
+/* Tắt hover và con trỏ chuột trên những ngày bị disable */
+.rdp-disabled,
+.rdp-day_button:disabled {
+  pointer-events: none !important;
+  background: none !important;
+  background-color: transparent !important;
+  opacity: 0.6 !important;
+}
+
+.rdp-custom .rdp-selected {
+  background: #c69963;
+}
+
+.rdp-custom .rdp-day:hover {
+  background-color: #c69963;
+}
