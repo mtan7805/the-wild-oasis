@@ -8,6 +8,7 @@ interface CabinDetailIdProps {
 
 function CabinDetailId({ cabin }: CabinDetailIdProps) {
   const { name, maxCapacity, description, image } = cabin;
+  console.log(cabin, "cabincabin");
 
   return (
     <section>

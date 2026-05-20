@@ -22,7 +22,7 @@ export default function Layout() {
       </div>
 
       <div className={`flex-1 flex flex-col ${isHome ? "pt-0" : "pt-24"}`}>
-        <main className="w-full flex-1">
+        <main className="w-full flex-1 flex flex-col">
           <Outlet />
         </main>
       </div>

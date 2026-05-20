@@ -10,3 +10,8 @@ export const getCabinApi = async (id: string | number): Promise<CabinType> => {
   const res = await api.get(`/cabins/${id}`);
   return res.data;
 };
+
+export const getBookingsGuest = async (): Promise<CabinType> => {
+  const res = await api.get(`/bookings/guest`);
+  return res.data;
+};

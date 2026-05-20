@@ -17,9 +17,8 @@ export default function Navigation({
   return (
     <nav className="w-full">
       <ul
-        className={`flex ${
-          isMobile ? "flex-col" : "flex-row gap-10 items-center"
-        }`}
+        className={`flex ${isMobile ? "flex-col" : "flex-row gap-10 items-center"
+          }`}
       >
         {navLinks.map((link) => (
           <li
@@ -33,12 +32,10 @@ export default function Navigation({
               end={link.path === "/"}
               onClick={handleToggle}
               className={({ isActive }) =>
-                `block transition-all duration-300 text-xl tracking-wide ${
-                  isMobile ? "py-6 text-2xl font-semibold" : ""
-                } ${
-                  isActive
-                    ? "text-accent-400"
-                    : "text-primary-100 hover:text-accent-400"
+                `block transition-all duration-300 text-xl tracking-wide ${isMobile ? "py-6 text-2xl font-semibold" : ""
+                } ${isActive
+                  ? "text-accent-400"
+                  : "text-primary-100 hover:text-accent-400"
                 }`
               }
             >

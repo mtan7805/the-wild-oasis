@@ -9,6 +9,9 @@ interface BookingProps {
 
 export const Booking = ({ cabin }: BookingProps) => {
   const [range, setRange] = useState<any>({});
+  const [numGuests, setNumGuests] = useState(1);
+  const [observations, setObservations] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -19,9 +22,31 @@ export const Booking = ({ cabin }: BookingProps) => {
         )
       : 0;
 
-  const { regularPrice, discount, maxCapacity } = cabin;
+  const { id, regularPrice, discount, maxCapacity } = cabin;
 
   const total = numNights * regularPrice;
+
+  const handleReserve = async () => {
+    setIsLoading(true);
+    try {
+      const payload = {
+        cabinId: id,
+        startDate: range.from.toISOString(),
+        endDate: range.to.toISOString(),
+        numGuests,
+        observations,
+      };
+      console.log(payload, "payloadpayload");
+
+      // Giả lập thời gian gửi request 1.5 giây
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      alert("Đặt phòng thành công!");
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] bg-[#0f1c2e] text-white rounded-2xl overflow-hidden shadow-2xl">
@@ -56,7 +81,7 @@ export const Booking = ({ cabin }: BookingProps) => {
             )}
 
             <span className="bg-[#b88a55] px-3 py-1 rounded-md font-bold">
-              <b className="font-medium">${numNights}</b>
+              <b className="font-medium">x {numNights}</b>
             </span>
 
             <span className="font-bold text-lg"> TOTAL: ${total}</span>
@@ -88,7 +113,11 @@ export const Booking = ({ cabin }: BookingProps) => {
             <label className="block test-sm mb-1">
               How many guests? <span className="text-red-400">*</span>
             </label>
-            <select className="w-full p-2 text-black rounded-md bg-primary-200">
+            <select
+              value={numGuests}
+              onChange={(e) => setNumGuests(Number(e.target.value))}
+              className="w-full p-2 text-black rounded-md bg-primary-200"
+            >
               {Array.from({ length: maxCapacity }, (_, i) => i + 1).map((n) => (
                 <option key={n} value={n}>
                   {n} {n === 1 ? "guest" : "guests"}
@@ -102,14 +131,20 @@ export const Booking = ({ cabin }: BookingProps) => {
               Anything we should know about your stay?
             </label>
             <textarea
+              value={observations}
+              onChange={(e) => setObservations(e.target.value)}
               className="w-full p-2 rounded-md  bg-primary-200 text-black h-28"
               placeholder="Any pets, allergies, special requirements, etc.?"
             />
           </div>
 
           {numNights > 0 ? (
-            <button className="bg-accent-500 text-primary-900 px-8 py-4 rounded-xl font-bold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-accent-500/20 active:scale-[0.98] cursor-pointer mt-4 w-full text-center">
-              Reserve now
+            <button
+              onClick={handleReserve}
+              disabled={isLoading}
+              className="bg-accent-500 text-primary-900 px-8 py-4 rounded-xl font-bold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-accent-500/20 active:scale-[0.98] cursor-pointer mt-4 w-full text-center disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isLoading ? "Reserving..." : "Reserve now"}
             </button>
           ) : (
             <div className="group flex text-sm px-8 py-4 gap-2 items-center text-primary-300 cursor-pointer justify-end">
