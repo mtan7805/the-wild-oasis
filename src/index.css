@@ -19,6 +19,13 @@ section {
   padding-block: 48px;
 }
 
+@media (max-width: 1024px) {
+  section {
+    padding-inline: 16px;
+    padding-block: 24px;
+  }
+}
+
 @theme {
   --color-primary-50: #e1e8ef;
   --color-primary-100: #d4dee7;
@@ -89,11 +96,28 @@ body {
 .rdp-custom {
   background-color: transparent;
   color: white;
+  width: 100%;
+}
+
+.rdp-custom .rdp-months {
+  display: flex !important;
+  justify-content: center;
+  gap: 40px;
+
+  width: fit-content;
+  margin-inline: auto;
 }
 
 .rdp-custom .rdp-day {
   color: white;
   border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.rdp-day_button {
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .rdp-custom .rdp-range_middle {

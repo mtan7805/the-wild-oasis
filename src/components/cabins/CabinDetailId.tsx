@@ -1,40 +1,12 @@
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { UsersIcon, MapPinIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getCabinApi } from "../../services/cabins.api";
 import type { CabinType } from "../../types/cabins/cabins";
-import Spinner from "../common/Spinner";
 
-function CabinDetailId() {
-  const { id } = useParams<{ id: string }>();
-  const [cabin, setCabin] = useState<CabinType | null>(null);
-  const [loading, setLoading] = useState(true);
+interface CabinDetailIdProps {
+  cabin: CabinType;
+}
 
-  useEffect(() => {
-    const fetchCabin = async () => {
-      if (!id) return;
-      try {
-        const data = await getCabinApi(id);
-        setCabin(data);
-      } catch (error) {
-        console.error("Error fetching cabin detail:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCabin();
-  }, [id]);
-
-  if (loading) return <Spinner />;
-  if (!cabin)
-    return (
-      <div className="text-center mt-10 text-2xl text-primary-200">
-        Cabin not found
-      </div>
-    );
-
+function CabinDetailId({ cabin }: CabinDetailIdProps) {
   const { name, maxCapacity, description, image } = cabin;
 
   return (
