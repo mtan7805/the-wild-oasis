@@ -1,73 +1,152 @@
-# React + TypeScript + Vite
+# 🌲 The Wild Oasis – Hotel Booking Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern hotel booking web application built with ReactJS and TypeScript, allowing users to browse cabins, manage bookings, and update guest information through a responsive and user-friendly interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+### Cabin Browsing & Filtering
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Browse cabin listings with images, descriptions, and pricing
+- Filter cabins by guest capacity
+- View cabin amenities and detailed information
 
-## Expanding the ESLint configuration
+### Booking System
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Select booking dates using `react-day-picker`
+- Calculate pricing dynamically based on booking duration
+- Prevent booking unavailable dates through API integration
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Guest Dashboard
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Guest authentication with Google OAuth (in progress)
+- View booking history and reservation details
+- Update guest profile information
+- Manage and cancel upcoming reservations
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React 19
+- TypeScript
+- React Router v7
+- Tailwind CSS v4
+- Axios
+- React Day Picker
+
+### Tools
+
+- Vite
+- Git & GitHub
+
+---
+
+## 📂 Project Structure
+
+```txt
+src/
+├── assets/
+├── components/
+│   ├── booking/
+│   ├── cabins/
+│   ├── guest/
+│   └── common/
+├── pages/
+│   ├── home/
+│   ├── about/
+│   ├── cabins/
+│   └── guest/
+├── routes/
+├── services/
+├── types/
+├── App.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Clone Repository
+
+```bash
+git clone https://github.com/mtan7805/the-wild-oasis.git
 ```
+
+### Move to Project Folder
+
+```bash
+cd the-wild-oasis
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` or `.env.local` file in the root directory:
+
+```env
+GOOGLE_CLIENT_ID="your_google_oauth_client_id"
+
+VITE_GOOGLE_CLIENT_ID="your_google_oauth_client_id"
+
+GOOGLE_CLIENT_SECRET="your_google_oauth_client_secret"
+```
+
+---
+
+## ▶️ Run Development Server
+
+```bash
+npm run dev
+```
+
+Open your browser:
+
+```txt
+http://localhost:5173
+```
+
+---
+
+## 🔗 API Integration
+
+The frontend application fetches data from a REST API for:
+
+- Cabin listings
+- Cabin details
+- Booking management
+- Guest reservations
+
+Base API Endpoint:
+
+```txt
+https://the-wild-oasis-api.vercel.app/api
+```
+
+---
+
+## 🗺️ Future Improvements
+
+- Complete Google OAuth integration
+- Add dark mode support
+- Improve booking management flow
+- Add animations and transitions
+- Add payment integration
+
+---
+
+## 👤 Author
+
+GitHub: https://github.com/mtan7805
+Project: https://github.com/mtan7805/the-wild-oasis
