@@ -8,6 +8,7 @@ import { GuestHome } from "../page/guest/GuestHome";
 import { GuestReservations } from "../page/guest/GuestReservations";
 import { GuestProfile } from "../page/guest/GuestProfile";
 import CabinDetail from "../page/cabins/CabinDetail";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRoutes() {
   return (
@@ -18,14 +19,15 @@ export default function AppRoutes() {
           <Route path="/cabins" element={<Cabins />} />
           <Route path="/cabins/:id" element={<CabinDetail />} />
           <Route path="/about" element={<About />} />
-          <Route path="/guest" element={<Guest />}>
-            <Route index element={<GuestHome />} />
-            <Route path="reservations" element={<GuestReservations />} />
-            <Route path="profile" element={<GuestProfile />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/guest" element={<Guest />}>
+              <Route index element={<GuestHome />} />
+              <Route path="reservations" element={<GuestReservations />} />
+              <Route path="profile" element={<GuestProfile />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
     </BrowserRouter>
   );
 }
-

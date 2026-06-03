@@ -2,6 +2,9 @@ import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import type { CabinType } from "../../types/cabins/cabins";
+import { useAuth } from "../../context/authContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface BookingProps {
   cabin: CabinType;
@@ -12,6 +15,8 @@ export const Booking = ({ cabin }: BookingProps) => {
   const [numGuests, setNumGuests] = useState(1);
   const [observations, setObservations] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -37,10 +42,12 @@ export const Booking = ({ cabin }: BookingProps) => {
         observations,
       };
       console.log(payload, "payloadpayload");
+      console.log(user, "user");
 
       // Giả lập thời gian gửi request 1.5 giây
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      alert("Đặt phòng thành công!");
+      toast.success("Đặt phòng thành công!");
+      navigate("/");
     } catch (err) {
       console.error(err);
     } finally {
@@ -100,11 +107,7 @@ export const Booking = ({ cabin }: BookingProps) => {
         <div className="flex items-center justify-between py-2 px-8 bg-primary-800">
           <span className=" text-gray-300">Logged in as</span>
           <div className="flex items-center gap-4">
-            <img
-              src="	https://avatars.githubusercontent.com/u/140865049?v=4"
-              className="w-10 h-10 rounded-full"
-            />
-            <span className="font-bold">Le Minh Tan</span>
+            <span className="font-bold">{user?.fullName}</span>
           </div>
         </div>
 

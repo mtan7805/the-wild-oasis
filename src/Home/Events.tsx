@@ -1,6 +1,9 @@
 import event1 from "../assets/event1.webp";
 import event2 from "../assets/event2.webp";
 import event3 from "../assets/event3.webp";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () => toast("please contact with us");
 
 export const Events = () => {
   return (
@@ -23,8 +26,22 @@ export const Events = () => {
             <span className="hidden md:inline">|</span>
             <span>3:00 - 5:00 PM</span>
           </div>
-          <div className="uppercase text-xl cursor-pointer w-fit">
-            See Detail
+          <div>
+            <button
+              className="uppercase text-xl cursor-pointer w-fit"
+              onClick={notify}
+            >
+              {" "}
+              See Detail
+            </button>
+            <Toaster
+              toastOptions={{
+                style: {
+                  backgroundColor: "#1e293b",
+                  color: "#22c55e",
+                },
+              }}
+            />
           </div>
         </div>
 
@@ -42,8 +59,22 @@ export const Events = () => {
             <span className="hidden md:inline">|</span>
             <span>8:00 - 11:00 PM</span>
           </div>
-          <div className="uppercase text-xl cursor-pointer w-fit">
-            See Detail
+          <div>
+            <button
+              className="uppercase text-xl cursor-pointer w-fit"
+              onClick={notify}
+            >
+              {" "}
+              See Detail
+            </button>
+            <Toaster
+              toastOptions={{
+                style: {
+                  backgroundColor: "#1e293b",
+                  color: "#22c55e",
+                },
+              }}
+            />
           </div>
         </div>
 
@@ -61,8 +92,22 @@ export const Events = () => {
             <span className="hidden md:inline">|</span>
             <span>10:00 PM - 1:00 AM</span>
           </div>
-          <div className="uppercase text-xl cursor-pointer w-fit">
-            See Detail
+          <div>
+            <button
+              className="uppercase text-xl cursor-pointer w-fit"
+              onClick={notify}
+            >
+              {" "}
+              See Detail
+            </button>
+            <Toaster
+              toastOptions={{
+                style: {
+                  backgroundColor: "#1e293b",
+                  color: "#22c55e",
+                },
+              }}
+            />
           </div>
         </div>
       </div>
