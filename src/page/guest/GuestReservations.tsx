@@ -1,13 +1,37 @@
-import React from "react";
-import { ReservationList } from "../../components/guest/reservations/ReservationList";
+import React, { useEffect, useState } from "react";
+import ReservationList from "../../components/guest/reservations/ReservationList";
+import { useAuth } from "../../context/authContext";
+import { getBookingsGuest } from "../../services/cabins.api";
+import type { Booking } from "../../types/bookings/bookings";
+import Spinner from "../../components/common/Spinner";
 
 export const GuestReservations = () => {
+  const { user } = useAuth();
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      // Nếu chưa đăng nhập hoặc không có token thì dừng lại
+      if (!user?.access_token) return;
+      try {
+        const data = await getBookingsGuest(user.access_token);
+        setBookings(data || []);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, [user?.access_token]);
+
+  if (loading) return <Spinner />;
+
   return (
     <div>
-      <h2 className="font-semibold text-2xl text-accent-400 mb-7">
-        Your reservations
-      </h2>
-      <ReservationList />
+      <ReservationList bookings={bookings} />
     </div>
   );
 };

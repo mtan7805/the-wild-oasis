@@ -2,6 +2,7 @@ import type { Cabin } from "../cabins/cabins";
 
 export interface Booking {
   id: string;
+  _id: string;
   cabins: Cabin;
 
   startDate: string;

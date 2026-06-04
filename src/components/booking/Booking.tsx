@@ -4,7 +4,7 @@ import "react-day-picker/style.css";
 import type { CabinType } from "../../types/cabins/cabins";
 import { useAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface BookingProps {
   cabin: CabinType;
@@ -44,12 +44,25 @@ export const Booking = ({ cabin }: BookingProps) => {
       console.log(payload, "payloadpayload");
       console.log(user, "user");
 
-      // Giả lập thời gian gửi request 1.5 giây
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("Đặt phòng thành công!");
-      navigate("/");
+      if (user) {
+        const res = await fetch("http://localhost:3000/api/bookings", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.access_token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || "Booking failed");
+        }
+        toast.success("Đặt phòng thành công!");
+        navigate("/thankyou");
+      }
     } catch (err) {
       console.error(err);
+      throw Error;
     } finally {
       setIsLoading(false);
     }
@@ -103,75 +116,92 @@ export const Booking = ({ cabin }: BookingProps) => {
         </div>
       </div>
 
-      <div className="bg-primary-900 flex flex-col">
-        <div className="flex items-center justify-between py-2 px-8 bg-primary-800">
-          <span className=" text-gray-300">Logged in as</span>
-          <div className="flex items-center gap-4">
-            <span className="font-bold">{user?.fullName}</span>
-          </div>
-        </div>
-
-        <div className="flex flex-col px-8 py-5 gap-4">
-          <div>
-            <label className="block test-sm mb-1">
-              How many guests? <span className="text-red-400">*</span>
-            </label>
-            <select
-              value={numGuests}
-              onChange={(e) => setNumGuests(Number(e.target.value))}
-              className="w-full p-2 text-black rounded-md bg-primary-200"
-            >
-              {Array.from({ length: maxCapacity }, (_, i) => i + 1).map((n) => (
-                <option key={n} value={n}>
-                  {n} {n === 1 ? "guest" : "guests"}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block test-sm mb-1">
-              Anything we should know about your stay?
-            </label>
-            <textarea
-              value={observations}
-              onChange={(e) => setObservations(e.target.value)}
-              className="w-full p-2 rounded-md  bg-primary-200 text-black h-28"
-              placeholder="Any pets, allergies, special requirements, etc.?"
-            />
-          </div>
-
-          {numNights > 0 ? (
-            <button
-              onClick={handleReserve}
-              disabled={isLoading}
-              className="bg-accent-500 text-primary-900 px-8 py-4 rounded-xl font-bold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-accent-500/20 active:scale-[0.98] cursor-pointer mt-4 w-full text-center disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {isLoading ? "Reserving..." : "Reserve now"}
-            </button>
-          ) : (
-            <div className="group flex text-sm px-8 py-4 gap-2 items-center text-primary-300 cursor-pointer justify-end">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5 group-hover:-translate-x-3 transition-transform "
-              >
-                <path d="m12 19-7-7 7-7" />
-                <path d="M19 12H5" />
-              </svg>
-
-              <span>Start by selecting dates</span>
+      {user ? (
+        <div className="bg-primary-900 flex flex-col">
+          <div className="flex items-center justify-between py-2 px-8 bg-primary-800">
+            <span className=" text-gray-300">Logged in as</span>
+            <div className="flex items-center gap-4">
+              <span className="font-bold">{user?.fullName}</span>
             </div>
-          )}
+          </div>
+
+          <div className="flex flex-col px-8 py-5 gap-4">
+            <div>
+              <label className="block test-sm mb-1">
+                How many guests? <span className="text-red-400">*</span>
+              </label>
+              <select
+                value={numGuests}
+                onChange={(e) => setNumGuests(Number(e.target.value))}
+                className="w-full p-2 text-black rounded-md bg-primary-200"
+              >
+                {Array.from({ length: maxCapacity }, (_, i) => i + 1).map(
+                  (n) => (
+                    <option key={n} value={n}>
+                      {n} {n === 1 ? "guest" : "guests"}
+                    </option>
+                  ),
+                )}
+              </select>
+            </div>
+
+            <div>
+              <label className="block test-sm mb-1">
+                Anything we should know about your stay?
+              </label>
+              <textarea
+                value={observations}
+                onChange={(e) => setObservations(e.target.value)}
+                className="w-full p-2 rounded-md  bg-primary-200 text-black h-28"
+                placeholder="Any pets, allergies, special requirements, etc.?"
+              />
+            </div>
+
+            {numNights > 0 ? (
+              <button
+                onClick={handleReserve}
+                disabled={isLoading}
+                className="bg-accent-500 text-primary-900 px-8 py-4 rounded-xl font-bold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-accent-500/20 active:scale-[0.98] cursor-pointer mt-4 w-full text-center disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isLoading ? "Reserving..." : "Reserve now"}
+              </button>
+            ) : (
+              <div className="group flex text-sm px-8 py-4 gap-2 items-center text-primary-300 cursor-pointer justify-end">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-5 w-5 group-hover:-translate-x-3 transition-transform "
+                >
+                  <path d="m12 19-7-7 7-7" />
+                  <path d="M19 12H5" />
+                </svg>
+
+                <span>Start by selecting dates</span>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-primary-900 flex flex-col items-center justify-center p-8 text-center min-h-[300px]">
+          <p className="text-primary-200 text-xl font-medium max-w-[280px] leading-relaxed">
+            Please{" "}
+            <Link
+              to="/guest"
+              className="underline text-accent-500 hover:text-accent-600 transition-colors"
+            >
+              login
+            </Link>{" "}
+            to reserve this cabin right now
+          </p>
+        </div>
+      )}
     </div>
   );
 };
