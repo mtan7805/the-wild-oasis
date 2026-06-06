@@ -10,6 +10,7 @@ import { GuestProfile } from "../page/guest/GuestProfile";
 import CabinDetail from "../page/cabins/CabinDetail";
 import ProtectedRoute from "./ProtectedRoute";
 import Thankyou from "../components/common/Thankyou";
+import { EditReservation } from "../components/guest/reservations/editReservation";
 
 export default function AppRoutes() {
   return (
@@ -25,6 +26,10 @@ export default function AppRoutes() {
             <Route path="/guest" element={<Guest />}>
               <Route index element={<GuestHome />} />
               <Route path="reservations" element={<GuestReservations />} />
+              <Route
+                path="reservations/edit/:bookingId"
+                element={<EditReservation />}
+              />
               <Route path="profile" element={<GuestProfile />} />
             </Route>
           </Route>

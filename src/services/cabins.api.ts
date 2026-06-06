@@ -27,14 +27,35 @@ export const getBookingsGuest = async (token: string): Promise<Booking[]> => {
   return res.data;
 };
 
-export const deleteBookingApi = async (
+export const getBookingApi = async (
   id: string,
   token: string,
-): Promise<void> => {
-  if (!token) throw new Error("Not authenticated");
-  await api.delete(`bookings/${id}`, {
+): Promise<Booking> => {
+  if (!token) {
+    throw new Error("Not authenticated");
+  }
+
+  const res = await api.get(`/bookings/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+  return res.data;
+};
+
+export const updateBookingApi = async (
+  id: string,
+  updateData: { numGuests: number; observations: string },
+  token: string,
+): Promise<Booking> => {
+  if (!token) {
+    throw new Error("Not authenticated");
+  }
+
+  const res = await api.patch(`/bookings/${id}`, updateData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
 };

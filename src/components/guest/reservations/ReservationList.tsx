@@ -15,6 +15,7 @@ export default function ReservationList({ bookings }: { bookings: Booking[] }) {
       const res = await fetch(
         `http://localhost:3000/api/bookings/${bookingId}`,
         {
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${userData.user.access_token}`,
@@ -23,7 +24,7 @@ export default function ReservationList({ bookings }: { bookings: Booking[] }) {
       );
       try {
         if (res.status === 200) {
-          setReservationList((prev) => prev.filter((b) => b.id !== bookingId));
+          setReservationList((prev) => prev.filter((b) => b._id !== bookingId));
           toast.success("Huỷ đặt phòng thành công!");
         }
       } catch (error) {
@@ -48,14 +49,19 @@ export default function ReservationList({ bookings }: { bookings: Booking[] }) {
       </p>
     </>
   ) : (
-    <ul className="space-y-6">
-      {reservationList.map((booking) => (
-        <ReservationCard
-          key={booking._id}
-          booking={booking}
-          onChooseData={handleDelete}
-        />
-      ))}
-    </ul>
+    <div>
+      <h2 className="font-semibold text-2xl text-accent-400 mb-7">
+        Your reservations
+      </h2>
+      <ul className="space-y-6">
+        {reservationList.map((booking) => (
+          <ReservationCard
+            key={booking._id}
+            booking={booking}
+            onChooseData={handleDelete}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }

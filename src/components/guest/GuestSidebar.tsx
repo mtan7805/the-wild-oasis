@@ -1,7 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Home, Calendar, User, LogOut } from "lucide-react";
+import { useAuth } from "../../context/authContext";
+import toast from "react-hot-toast";
 
 export default function GuestSidebar() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    const isConfirm = window.confirm("Bạn có muốn đăng xuất không");
+    if (!isConfirm) return;
+    logout();
+    toast.success("Đăng xuất thành công");
+    navigate("/");
+  };
+
   const navItems = [
     {
       to: "/guest",
@@ -50,7 +62,10 @@ export default function GuestSidebar() {
       </ul>
 
       <div className="px-6 pt-6 border-t border-primary-900 mt-auto">
-        <button className="group flex w-full items-center gap-4 py-3 font-semibold text-lg text-primary-300 hover:text-accent-400 transition-colors cursor-pointer">
+        <button
+          onClick={handleLogout}
+          className="group flex w-full items-center gap-4 py-3 font-semibold text-lg text-primary-300 hover:text-accent-400 transition-colors cursor-pointer"
+        >
           <LogOut className="w-5 h-5 text-primary-400 group-hover:text-accent-400 transition-colors" />
           <span>Sign out</span>
         </button>

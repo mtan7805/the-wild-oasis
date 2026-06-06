@@ -12,7 +12,6 @@ export const GuestReservations = () => {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      // Nếu chưa đăng nhập hoặc không có token thì dừng lại
       if (!user?.access_token) return;
       try {
         const data = await getBookingsGuest(user.access_token);

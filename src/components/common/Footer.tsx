@@ -42,7 +42,7 @@ export const Footer = () => {
 
         <div className="flex flex-col gap-4">
           <span className="text-xl font-semibold mb-3">Contact</span>
-          <span>T: +66-9-147-9581</span>
+          <span>T: +84-348-901-578</span>
           <span>E: thewildoasis.co</span>
           <span>F: +09-441-860-441</span>
         </div>
