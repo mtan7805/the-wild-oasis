@@ -11,7 +11,7 @@ interface Country {
 export const GuestProfileForm = () => {
   const { user, loginSuccess } = useAuth();
 
-  const [fullName, setFullName] = useState(user?.fullName || "");
+  const fullName = user?.fullName || "";
   const [nationalID, setNationalID] = useState(user?.nationalID || "");
   const [nationality, setNationality] = useState(user?.nationality || "");
   const [countryFlag, setCountryFlag] = useState(user?.countryFlag || "");

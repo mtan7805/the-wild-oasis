@@ -5,6 +5,7 @@ import type { CabinType } from "../../types/cabins/cabins";
 import { useAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
 
 interface BookingProps {
   cabin: CabinType;
@@ -45,24 +46,18 @@ export const Booking = ({ cabin }: BookingProps) => {
       console.log(user, "user");
 
       if (user) {
-        const res = await fetch("http://localhost:3000/api/bookings", {
-          method: "POST",
+        await api.post("/bookings", payload, {
           headers: {
-            "Content-Type": "application/json",
             authorization: `Bearer ${user.access_token}`,
           },
-          body: JSON.stringify(payload),
         });
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.message || "Booking failed");
-        }
         toast.success("Đặt phòng thành công!");
         navigate("/thankyou");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      throw Error;
+      const errorMessage = err.response?.data?.message || "Booking failed";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

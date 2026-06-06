@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ReservationCard } from "./ReservationCard";
 import { useAuth } from "../../../context/authContext";
 import toast from "react-hot-toast";
+import { api } from "../../../services/api";
 
 export default function ReservationList({ bookings }: { bookings: Booking[] }) {
   const userData = useAuth();
@@ -12,17 +13,12 @@ export default function ReservationList({ bookings }: { bookings: Booking[] }) {
     const isConfirm = window.confirm("Bạn có muốn xoá không?");
     if (!isConfirm) return;
     if (userData.user?.access_token) {
-      const res = await fetch(
-        `http://localhost:3000/api/bookings/${bookingId}`,
-        {
-          method: "DELETE",
+      try {
+        const res = await api.delete(`/bookings/${bookingId}`, {
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${userData.user.access_token}`,
           },
-        },
-      );
-      try {
+        });
         if (res.status === 200) {
           setReservationList((prev) => prev.filter((b) => b._id !== bookingId));
           toast.success("Huỷ đặt phòng thành công!");

@@ -10,7 +10,7 @@ import { GuestProfile } from "../page/guest/GuestProfile";
 import CabinDetail from "../page/cabins/CabinDetail";
 import ProtectedRoute from "./ProtectedRoute";
 import Thankyou from "../components/common/Thankyou";
-import { EditReservation } from "../components/guest/reservations/editReservation";
+import { EditReservation } from "../components/guest/reservations/EditReservation";
 
 export default function AppRoutes() {
   return (

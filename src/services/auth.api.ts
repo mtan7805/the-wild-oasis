@@ -1,4 +1,5 @@
 import type { AuthState, Guest } from "../types/auth/auth";
+import { api } from "./api";
 
 export const LoginGoogle = async (
   idToken: string,
@@ -6,20 +7,13 @@ export const LoginGoogle = async (
   fullName: string,
 ): Promise<AuthState> => {
   try {
-    const res = await fetch("http://localhost:3000/api/auth/guest/google", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        idToken,
-        email,
-        fullName,
-      }),
+    const res = await api.post("/auth/guest/google", {
+      idToken,
+      email,
+      fullName,
     });
-    if (!res.ok) throw new Error("Account verification failed");
 
-    const responseData = await res.json();
+    const responseData = res.data;
 
     const guestData: Guest = {
       access_token: responseData.access_token,
@@ -30,9 +24,10 @@ export const LoginGoogle = async (
       user: guestData,
       isAuthenticated: true,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
-    throw error;
+    const errorMessage = error.response?.data?.message || "Account verification failed";
+    throw new Error(errorMessage);
   }
 };
 
@@ -45,17 +40,16 @@ export const updateProfileApi = async (
   },
   token: string,
 ): Promise<Guest> => {
-  const res = await fetch("http://localhost:3000/api/guests/me", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(updateData),
-  });
-  const responseData = await res.json();
-  if (!res.ok) {
-    throw new Error(responseData.message || "Cập nhật thông tin thất bại");
+  try {
+    const res = await api.patch("/guests/me", updateData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message || "Cập nhật thông tin thất bại";
+    throw new Error(errorMessage);
   }
-  return responseData;
 };
+
