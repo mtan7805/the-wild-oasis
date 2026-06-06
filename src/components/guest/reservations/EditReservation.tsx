@@ -107,7 +107,7 @@ export const EditReservation = () => {
             disabled={isUpdating}
             className="bg-accent-500 text-primary-900 px-8 py-4 rounded-xl font-bold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-accent-500/20 active:scale-[0.98] cursor-pointer mt-4 w-full text-center disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            {isUpdating ? "Update..." : "Update Reservation"}
+            {isUpdating ? "Updating..." : "Update Reservation"}
           </button>
         </div>
       </form>

@@ -35,3 +35,27 @@ export const LoginGoogle = async (
     throw error;
   }
 };
+
+export const updateProfileApi = async (
+  updateData: {
+    fullName: string;
+    nationalID: string;
+    nationality: string;
+    countryFlag: string;
+  },
+  token: string,
+): Promise<Guest> => {
+  const res = await fetch("http://localhost:3000/api/guests/me", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updateData),
+  });
+  const responseData = await res.json();
+  if (!res.ok) {
+    throw new Error(responseData.message || "Cập nhật thông tin thất bại");
+  }
+  return responseData;
+};

@@ -189,8 +189,8 @@ export const Booking = ({ cabin }: BookingProps) => {
           </div>
         </div>
       ) : (
-        <div className="bg-primary-900 flex flex-col items-center justify-center p-8 text-center min-h-[300px]">
-          <p className="text-primary-200 text-xl font-medium max-w-[280px] leading-relaxed">
+        <div className="bg-primary-900 flex flex-col items-center justify-center p-8 text-center min-h-75">
+          <p className="text-primary-200 text-xl font-medium max-w-70 leading-relaxed">
             Please{" "}
             <Link
               to="/guest"

@@ -67,17 +67,17 @@ export const ReservationCard = ({
       </div>
 
       {/* ACTIONS */}
-      <div className="hidden lg:flex flex-col border-l border-primary-800 w-25">
+      <div className="flex md:flex-col border-t md:border-t-0 md:border-l border-primary-800 w-full md:w-25">
         <Link
           to={`/guest/reservations/edit/${booking._id}`}
-          className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+          className="group flex items-center justify-center md:justify-start gap-2 uppercase text-xs font-bold text-primary-300 border-r md:border-r-0 md:border-b border-primary-800 flex-grow py-3 px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
         >
           Edit
         </Link>
 
         <button
           onClick={() => handleDeleteBooking(booking._id)}
-          className="group cursor-pointer flex items-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+          className="group cursor-pointer flex items-center justify-center md:justify-start gap-2 uppercase text-xs font-bold text-primary-300 flex-grow py-3 px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
         >
           Delete
         </button>
