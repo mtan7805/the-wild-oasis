@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
 import { updateProfileApi } from "../../services/auth.api";
+import countriesData from "../../utils/countries.json";
 
 interface Country {
   name: string;
@@ -16,25 +17,8 @@ export const GuestProfileForm = () => {
   const [nationality, setNationality] = useState(user?.nationality || "");
   const [countryFlag, setCountryFlag] = useState(user?.countryFlag || "");
 
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [countries] = useState<Country[]>(countriesData);
   const [isUpdating, setIsUpdating] = useState(false);
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await fetch(
-          "https://restcountries.com/v2/all?fields=name,flag",
-        );
-        if (!res.ok) throw new Error("Could not fetch country list");
-        const data = await res.json();
-        setCountries(data);
-      } catch (err) {
-        console.error("Error fetching countries:", err);
-        toast.error("Không thể tải danh sách quốc gia");
-      }
-    };
-    fetchCountries();
-  }, []);
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCountryName = e.target.value;

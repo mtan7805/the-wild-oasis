@@ -28,6 +28,7 @@ export const GuestLogin = () => {
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={() => setError("Xác thực tài khoản Google thất bại.")}
+              useOneTap={false}
             />
           )}
         </div>
