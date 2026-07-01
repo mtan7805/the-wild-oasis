@@ -16,6 +16,7 @@ function CabinFilter() {
   function handleFilter(filter: FilterValue): void {
     const params = new URLSearchParams(searchParams.toString());
     params.set("capacity", filter);
+    params.delete("page");
     navigate(`${location.pathname}?${params.toString()}`);
   }
 

@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getCabinsApi } from "../../services/cabins.api";
 import type { Cabin } from "../../types/cabins/cabins";
 import CabinCard from "./CabinCard";
 import Spinner from "../common/Spinner";
+import Pagination from "../common/Pagination";
 import type { FilterValue } from "../../page/cabins/Cabins";
+
+const PAGE_SIZE = 4;
 
 export const CabinList = ({ filter }: { filter: FilterValue }) => {
   const [cabins, setCabins] = useState<Cabin[]>([]);
   const [loading, setloading] = useState(true);
+  const [searchParams] = useSearchParams();
 
   const fetchDataCabins = async () => {
     try {
       const res = await getCabinsApi();
-      console.log(res, "resres");
       setCabins(res);
     } catch (error) {
       console.log(error);
@@ -44,13 +48,26 @@ export const CabinList = ({ filter }: { filter: FilterValue }) => {
     }
   })();
 
+  // Pagination logic
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const paginatedCabins = filterCabins.slice(startIndex, endIndex);
+
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-      {filterCabins.map((cabin) => (
-        <CabinCard cabin={cabin} key={cabin.id} />
-      ))}
-    </div>
+    <>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
+        {paginatedCabins.map((cabin) => (
+          <CabinCard cabin={cabin} key={cabin.id} />
+        ))}
+      </div>
+      <Pagination count={filterCabins.length} pageSize={PAGE_SIZE} />
+    </>
   );
 };
 
 export default CabinList;
+
